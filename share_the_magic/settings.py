@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = ['https://recipe-sharing-drf.onrender.com','https://*.127.0.0.1']
 CORS_ALLOWED_ORIGINS = [
-    "https://recipe-sharing-drf.onrender.com",
+    "https://recipe-sharing-drf.onrender.com/recipe",
     "https://*.127.0.0.1",
 ]
 
