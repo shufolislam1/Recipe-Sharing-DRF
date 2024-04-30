@@ -111,6 +111,7 @@ django-crispy-forms
 django-environ
 django-filter
 djangorestframework
+django-cors-headers
 filelock
 Markdown
 Pillow
