@@ -12,6 +12,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from . import models
 from . import serializers
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 class UserRegistrationApiView(APIView):
