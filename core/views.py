@@ -15,6 +15,10 @@ from . import serializers
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
+# views.py
+from rest_framework import generics
+from django.contrib.auth.models import User
+from .serializers import UserSerializer
 
 class UserRegistrationApiView(APIView):
     serializer_class = serializers.RegistrationSerializer
@@ -78,3 +82,10 @@ class UserLogoutView(APIView):
             request.user.auth_token.delete()
             logout(request)
         return redirect('login')
+    
+    
+
+
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
