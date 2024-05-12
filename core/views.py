@@ -86,6 +86,6 @@ class UserLogoutView(APIView):
     
 
 
-class UserListView(generics.ListAPIView):
+class UserListView(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
