@@ -33,9 +33,10 @@ ALLOWED_HOSTS = ["*"]
 
 
 CORS_ALLOW_ALL_ORIGINS = True
-CSRF_TRUSTED_ORIGINS = ['https://recipe-sharing-drf.onrender.com','https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://recipe-sharing-drf.onrender.com','http://localhost:5500']
 CORS_ALLOWED_ORIGINS = [
-    "https://recipe-sharing-drf.onrender.com"
+    "https://recipe-sharing-drf.onrender.com",
+    'http://localhost:5500'
 ]
 
 # Application definition
