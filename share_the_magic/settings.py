@@ -30,13 +30,14 @@ SECRET_KEY = 'django-insecure-ga%7hl)pl(xtp6%p*c&6i7d_-am1qi7tc1i%*t2^4kqm)98yjv
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+Access_Control_Allow_Origin = []
 
 
 CORS_ALLOW_ALL_ORIGINS = True
-CSRF_TRUSTED_ORIGINS = ['https://recipe-sharing-drf.onrender.com','http://localhost:5500']
+CSRF_TRUSTED_ORIGINS = ['https://recipe-sharing-drf.onrender.com','http://127.0.0.1:5500']
 CORS_ALLOWED_ORIGINS = [
     "https://recipe-sharing-drf.onrender.com",
-    'http://localhost:5500'
+    'http://127.0.0.1:5500'
 ]
 
 # Application definition
