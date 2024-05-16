@@ -8,6 +8,7 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.authtoken.models import Token
+from rest_framework import status
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from . import models
@@ -81,9 +82,16 @@ class UserLogoutView(APIView):
         if request.user.is_authenticated:
             request.user.auth_token.delete()
             logout(request)
-        return redirect('login')
-    
-    
+            return redirect('login')  # Return a redirect response
+        return Response(status=status.HTTP_400_BAD_REQUEST)  # Or any appropriate response for non-authenticated user
+
+    def post(self, request):  # Add this method to handle POST requests
+        if request.user.is_authenticated:
+            request.user.auth_token.delete()
+            logout(request)
+            return redirect('login')  # Return a redirect response
+        return Response(status=status.HTTP_400_BAD_REQUEST)  # Or any appropriate response for non-authenticated user
+
 
 
 class UserListView(viewsets.ModelViewSet):
