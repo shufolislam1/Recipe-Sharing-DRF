@@ -35,10 +35,10 @@ Access_Control_Allow_Origin = []
 CORS_ORIGIN_ALLOW_ALL = True
 #CORS_ALLOW_ALL_ORIGINS = True
 CSRF_TRUSTED_ORIGINS = ['https://recipe-sharing-drf.onrender.com','http://127.0.0.1:5500']
-CORS_ALLOWED_ORIGINS = [
-    "https://recipe-sharing-drf.onrender.com",
-    'http://127.0.0.1:5500'
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "https://recipe-sharing-drf.onrender.com",
+#     'http://127.0.0.1:5500'
+# ]
 
 # Application definition
 
