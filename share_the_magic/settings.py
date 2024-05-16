@@ -30,26 +30,18 @@ SECRET_KEY = 'django-insecure-ga%7hl)pl(xtp6%p*c&6i7d_-am1qi7tc1i%*t2^4kqm)98yjv
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-Access_Control_Allow_Origin = []
 
-CORS_ORIGIN_ALLOW_ALL = True
-#CORS_ALLOW_ALL_ORIGINS = True
-CSRF_TRUSTED_ORIGINS = ['https://recipe-sharing-drf.onrender.com','http://127.0.0.1:5500']
-# CORS_ALLOWED_ORIGINS = [
-#     "https://recipe-sharing-drf.onrender.com",
-#     'http://127.0.0.1:5500'
-# ]
 
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'core',
@@ -57,6 +49,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -64,7 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'share_the_magic.urls'
@@ -136,6 +129,23 @@ USE_TZ = True
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+
+CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = ['https://recipe-sharing-drf.onrender.com','http://127.0.0.1:5500']
+# CORS_ALLOWED_ORIGINS = [
+#     "https://recipe-sharing-drf.onrender.com",
+#     'http://127.0.0.1:5500'
+# ]
+
+
+# CORS_ALLOW_ALL_ORIGINS = True
+# CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000/','http://127.0.0.1:5500']
+# CORS_ALLOWED_ORIGINS = [
+#      'http://127.0.0.1:5500'
+#  ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
