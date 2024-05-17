@@ -77,22 +77,34 @@ class UserLoginApiView(APIView):
                 return Response({'error' : "Invalid Credential"})
         return Response(serializer.errors)
 
-class UserLogoutView(APIView):
-    def get(self, request):
-        if request.user.is_authenticated:
-            request.user.auth_token.delete()
-            logout(request)
-            return redirect('login')  # Return a redirect response
-        return Response(status=status.HTTP_400_BAD_REQUEST)  # Or any appropriate response for non-authenticated user
+# class UserLogoutView(APIView):
+#     # def get(self, request):
+#     #     if request.user.is_authenticated:
+#     #         request.user.auth_token.delete()
+#     #         logout(request)
+#     #         return redirect('login')  # Return a redirect response
+#     #     return Response(status=status.HTTP_400_BAD_REQUEST)  # Or any appropriate response for non-authenticated user
 
-    def post(self, request):  # Add this method to handle POST requests
-        if request.user.is_authenticated:
-            request.user.auth_token.delete()
-            logout(request)
-            return redirect('login')  # Return a redirect response
-        return Response(status=status.HTTP_400_BAD_REQUEST)  # Or any appropriate response for non-authenticated user
+#     def post(self, request):  # Add this method to handle POST requests
+#         if request.user.is_authenticated:
+#             request.user.auth_token.delete()
+#             logout(request)
+#             return redirect('login')  # Return a redirect response
+#         return Response(status=status.HTTP_400_BAD_REQUEST)  # Or any appropriate response for non-authenticated user
 
-
+class UserLogoutAPIView(APIView):
+    def post(self, request):
+        try:
+            # Get the user's token from the request headers
+            token_key = request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
+            token = Token.objects.get(key=token_key)
+            # Delete the token
+            token.delete()
+            return Response({'message': 'Logout successful'}, status=status.HTTP_200_OK)
+        except Token.DoesNotExist:
+            return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
+        except AttributeError:
+            return Response({'error': 'Token not provided'}, status=status.HTTP_400_BAD_REQUEST)
 
 class UserListView(viewsets.ModelViewSet):
     queryset = User.objects.all()
