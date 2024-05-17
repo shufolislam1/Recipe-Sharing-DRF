@@ -13,8 +13,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from . import models
 from . import serializers
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 # Create your views here.
 # views.py
 from rest_framework import generics
@@ -123,12 +123,34 @@ class UserLoginApiView(APIView):
 #         except AttributeError:
 #             return Response({'error': 'Token not provided'}, status=status.HTTP_400_BAD_REQUEST)
         
+# class UserLogoutAPIView(APIView):
+#     def get(self, request):
+#         request.user.auth_token.delete()
+#         logout(request)
+#          # return redirect('login')
+#         return Response({'success' : "logout successful"})
+    
 class UserLogoutAPIView(APIView):
-    def get(self, request):
-        request.user.auth_token.delete()
-        logout(request)
-         # return redirect('login')
-        return Response({'success' : "logout successful"})
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            # Check if the user is authenticated
+            if not request.user.is_authenticated:
+                return Response({'error': 'User is not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
+            
+            # Delete the token associated with the user
+            request.user.auth_token.delete()
+            
+            # Logout the user
+            logout(request)
+            return Response({'success': 'Logout successful'}, status=status.HTTP_200_OK)
+        except AttributeError:
+            return Response({'error': 'Token not provided or invalid'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 
 class UserListView(viewsets.ModelViewSet):
